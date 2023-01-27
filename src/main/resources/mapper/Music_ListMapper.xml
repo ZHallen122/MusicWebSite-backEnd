@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.music.musicwebsitebackend.dao.Music_ListMapper">
+    <resultMap id="BaseResultMap" type="com.music.musicwebsitebackend.entity.Music_List" >
+        <id column="id"  jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="pic" jdbcType="VARCHAR" property="pic"/>
+        <result column="introduction" jdbcType="LONGVARCHAR" property="introduction"/>
+        <result column="style" jdbcType="VARCHAR" property="style"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,pic,introduction,style,type
+    </sql>
+    <select id="findMusic_List" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from music_List
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findAllMusic_List" resultMap="BaseResultMap">
+        select *
+        from music_List;
+    </select>
+
+    <insert id="insertMusic_List" parameterType="com.music.musicwebsitebackend.entity.Music_List">
+        insert into music_List (id,title,pic,introduction,style,type)
+        values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},
+               #{introduction,jdbcType=LONGVARCHAR},  #{style,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateMusic_List" parameterType="com.music.musicwebsitebackend.entity.Music_List" >
+
+        update music_List
+        <set >
+            <if test="title != null" >
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="pic != null" >
+                pic = #{pic,jdbcType=VARCHAR},
+            </if>
+            <if test="style != null" >
+                style = #{style,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="introduction != null" >
+                introduction = #{introduction,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateMusicListImg" parameterType="com.music.musicwebsitebackend.entity.Music_List" >
+        update music_List
+        <set >
+            <if test="pic != null" >
+                pic = #{pic,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteMusic_List" parameterType="java.lang.Integer" >
+
+        delete from music_List
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

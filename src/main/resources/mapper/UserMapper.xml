@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.music.musicwebsitebackend.dao.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.music.musicwebsitebackend.entity.User">
+            <id property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="userName" column="username" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="TINYINT"/>
+            <result property="phone_number" column="phone_number" jdbcType="INTEGER"/>
+            <result property="birth" column="birth" jdbcType="TIMESTAMP"/>
+            <result property="location" column="location" jdbcType="VARCHAR"/>
+            <result property="avator" column="avator" jdbcType="VARCHAR"/>
+            <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="role" column="role" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        email,userName,password,
+        sex,phone_number,birth,
+        location,avator,create_time,
+        update_time,role
+    </sql>
+
+    <insert id="insertUser">
+        insert into user (email,userName,password,
+                          sex,phone_number,birth,
+                          location,avator,create_time,
+                          update_time,role
+        )
+        values (#{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{sex,jdbcType=TINYINT}, #{phone_number,jdbcType=INTEGER},
+                #{birth,jdbcType=TIMESTAMP},#{location,jdbcType=VARCHAR}
+                ,#{avator,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP}
+                ,#{update_time,jdbcType=TIMESTAMP}, #{role,jdbcType=VARCHAR}
+               )
+    </insert>
+
+    <update id="updateUser">
+        update user
+        set #{userName,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},
+            #{sex,jdbcType=TINYINT}, #{phone_number,jdbcType=INTEGER},
+            #{birth,jdbcType=TIMESTAMP},#{location,jdbcType=VARCHAR}
+            ,#{avator,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
+            ,#{update_time,jdbcType=TIMESTAMP}, #{role,jdbcType=VARCHAR}
+        where email = #{email,jdbcType=VARCHAR}
+    </update>
+    <delete id="deleteUser">
+        delete from user
+        where email = #{email,jdbcType=VARCHAR}
+    </delete>
+    <select id="findUser" resultType="com.music.musicwebsitebackend.entity.User">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where email = #{email,jdbcType=VARCHAR}
+    </select>
+    <select id="findAllUser" resultType="com.music.musicwebsitebackend.entity.User">
+        select *
+        from user
+    </select>
+    <select id="findUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select *
+        from user
+        where email like #{email, jdbcType=VARCHAR}
+    </select>
+</mapper>

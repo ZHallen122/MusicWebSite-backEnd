@@ -1,0 +1,98 @@
+package com.music.musicwebsitebackend.Security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
+
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.MappedJwtClaimSetConverter;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+
+import java.security.interfaces.RSAPublicKey;
+import java.util.Collections;
+
+@Configuration
+@EnableWebSecurity
+
+public class SecurityConfig {
+
+    @Value("${classpath:jwtPublic.rsa.pem}")
+    private RSAPublicKey key;
+
+    //Decoder
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withPublicKey(this.key).build();
+        //NimbusJwtDecoder.withPublicKey(this.key).build();
+        return jwtDecoder;
+    }
+
+
+    // tell spring security we dont want default role
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        final JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        grantedAuthoritiesConverter.setAuthoritiesClaimName("role");
+        grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+
+        final JwtAuthenticationConverter jac = new JwtAuthenticationConverter();
+        jac.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+        return jac;
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf().disable();
+        return httpSecurity.authorizeHttpRequests(authorize ->
+                        authorize
+                                .antMatchers("/admin/**","/signup/**","/login/**").permitAll()
+                                .mvcMatchers("/findMusic/**").hasAnyRole("user","admin")
+                                .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .build();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        // Here we set authentication for all endpoints
+        return httpSecurity.authorizeHttpRequests(authorize ->
+                        authorize.anyRequest().authenticated()        )
+                // Here we enable that we will accept JWTs
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .build();
+
+
+
+        /*http
+                .csrf()
+                .disable()
+                .authorizeHttpRequests()
+                .requestMatchers()
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();*/
+    }
+
+}

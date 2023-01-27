@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.music.musicwebsitebackend.dao.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.music.musicwebsitebackend.entity.Comment">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+            <result property="musicId" column="music_id" jdbcType="INTEGER"/>
+            <result property="musicListId" column="music_list_id" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="creattime" column="creatTime" jdbcType="TIMESTAMP"/>
+            <result property="context" column="context" jdbcType="VARCHAR"/>
+            <result property="up" column="up" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,userId,musicId,
+        musicListId,type,creattime,
+        context,up
+    </sql>
+    <insert id="insertComment" parameterType="com.music.musicwebsitebackend.entity.Comment">
+        insert into Comment (id, userId, type,
+                             musicId, musicListId, create_time,context,up
+        )
+        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+                #{musicId,jdbcType=INTEGER}, #{musicListId,jdbcType=INTEGER},
+                #{createTime,jdbcType=TIMESTAMP}, #{context,jdbcType=VARCHAR},#{up,jdbcType=INTEGER}
+               )
+    </insert>
+    <update id="updateComment" parameterType="com.music.musicwebsitebackend.entity.Comment">
+        update Comment
+        set user_id = #{userId,jdbcType=VARCHAR},
+            type = #{type,jdbcType=TINYINT},
+            musicId = #{musicId,jdbcType=INTEGER},
+            musicListId = #{musicListId,jdbcType=INTEGER},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            context = #{context,jdbcType=VARCHAR},
+            up = #{up,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteComment" parameterType="java.lang.Integer">
+        delete from comment
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <select id="findComment" resultType="com.music.musicwebsitebackend.entity.Comment">
+        select
+        <include refid="Base_Column_List" />
+        from comment
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="findAllComment" resultType="com.music.musicwebsitebackend.entity.Comment">
+        select *
+        from comment
+    </select>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.music.musicwebsitebackend.dao.RankMapper">
+
+    <resultMap id="BaseResultMap" type="com.music.musicwebsitebackend.entity.Rank">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="musicList_Id" column="musicList_Id" jdbcType="INTEGER"/>
+            <result property="music_Id" column="music_Id" jdbcType="INTEGER"/>
+            <result property="score" column="score" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,musicList_Id,music_Id,
+        score
+    </sql>
+    <insert id="insertRank" parameterType="com.music.musicwebsitebackend.entity.Rank">
+        insert into Rank (id, musicList_Id, music_Id,
+                          score
+        )
+        values (#{id,jdbcType=INTEGER}, #{musicList_Id,jdbcType=INTEGER}, #{music_Id,jdbcType=TINYINT},
+                #{score,jdbcType=INTEGER}
+               )
+
+    </insert>
+    <update id="updateRank">
+        update Rank
+        set musicList_Id = #{musicList_Id,jdbcType=INTEGER},
+            music_Id = #{music_Id,jdbcType=TINYINT},
+            score = #{score,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteRank">
+        delete from Rank
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <select id="findRank" resultType="com.music.musicwebsitebackend.entity.Rank">
+        select
+        <include refid="Base_Column_List" />
+        from Rank
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="findAllRank" resultType="com.music.musicwebsitebackend.entity.Rank">
+        select *
+        from Rank
+    </select>
+</mapper>
