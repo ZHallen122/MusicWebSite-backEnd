@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface AdminMapper {
     // check passWord
     public int verifyPassword(String name, String password);
+
+    public Admin selectByAdminName(String name);
 }

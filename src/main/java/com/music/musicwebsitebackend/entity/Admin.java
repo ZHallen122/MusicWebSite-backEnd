@@ -9,6 +9,8 @@ public class Admin implements Serializable {
 
         private String password;
 
+        private String role;
+
         public int getId() {
             return id;
         }
@@ -32,4 +34,12 @@ public class Admin implements Serializable {
         public void setPassword(String password) {
             this.password = password;
         }
-    }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
+}

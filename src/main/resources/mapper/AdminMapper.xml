@@ -12,4 +12,11 @@
     <select id="verifyPassword" resultType="java.lang.Integer">
         select count(*) from admin where #{name} and #{password}
     </select>
+
+    <select id="selectByAdminName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select *
+        from admin
+        where name like #{name, jdbcType=VARCHAR}
+    </select>
+
 </mapper>
