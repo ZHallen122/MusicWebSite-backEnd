@@ -4,6 +4,7 @@ import com.music.musicwebsitebackend.entity.Singer;
 import com.music.musicwebsitebackend.service.SingerService;
 import com.music.musicwebsitebackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ public class SingerController {
     private SingerService singerService;
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('admin')")
     public Result addSinger(@RequestBody Singer singer){
         Boolean checker = singerService.insertSinger(singer);
         if(checker){
@@ -27,6 +29,7 @@ public class SingerController {
     }
 
     @GetMapping("/delete/{SingerId}")
+    @PreAuthorize("hasAuthority('admin')")
     public Result deletSinger(@PathVariable("SingerId") int id){
         Boolean checker = singerService.deleteSinger(id);
         if(checker){
@@ -37,6 +40,7 @@ public class SingerController {
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('admin')")
     public Result updateSinger(@RequestBody Singer singer){
         Boolean checker = singerService.updateSinger(singer);
         if(checker){

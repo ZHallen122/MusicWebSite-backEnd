@@ -58,7 +58,8 @@ public class SecurityConfig {
         return httpSecurity.authorizeHttpRequests(authorize ->
                         authorize
                                 .antMatchers("/admin/**","/signup/**","/login/**").permitAll()
-                                .mvcMatchers("/findMusic/**").hasAnyRole("user","admin")
+                                .mvcMatchers("/findMusic/**").hasAnyRole("admin")
+                                .mvcMatchers("/music/findAllMusic/**").hasAnyRole("admin")
                                 .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

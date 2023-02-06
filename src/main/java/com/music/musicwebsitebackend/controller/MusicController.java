@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.unit.DataSize;
 import org.springframework.util.unit.DataUnit;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,7 @@ public class MusicController {
 
     // need to change !!!!!!!!!!!!
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('admin')")
     public Result addMusic(@RequestBody Music music, @RequestParam("file")MultipartFile multipartFile){
         Boolean checker = musicService.insertMusic(music);
         if(checker){
@@ -43,6 +45,7 @@ public class MusicController {
     }
 
     @GetMapping("/delete/{musicId}")
+    @PreAuthorize("hasAuthority('admin')")
     public Result deleteMusic(@PathVariable("musicId") int id){
         Boolean checker = musicService.deleteMusic(id);
         if(checker){
@@ -53,6 +56,7 @@ public class MusicController {
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('admin')")
     public Result upDateMusic(@RequestBody Music music){
         Boolean checker = musicService.updateMusic(music);
         if(checker){
@@ -73,10 +77,11 @@ public class MusicController {
     }
 
     @GetMapping("/findAllMusic")
+    @PreAuthorize("hasAuthority('admin')")
     public Result findAllMusic(){
         List<Music> music = musicService.findAllMusic();
         if(music!=null){
-            return Result.success("success");
+            return Result.success(music);
         }else{
             return Result.error("error music insert");
         }
