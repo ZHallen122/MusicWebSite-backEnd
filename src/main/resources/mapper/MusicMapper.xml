@@ -5,83 +5,101 @@
 <mapper namespace="com.music.musicwebsitebackend.dao.MusicMapper">
     <resultMap id="BaseResultMap" type="com.music.musicwebsitebackend.entity.Music" >
         <id column="id"  jdbcType="INTEGER" property="id"/>
+        <result column="singer_id" jdbcType="INTEGER" property="singer_id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
         <result column="upDate_time" jdbcType="TIMESTAMP" property="update_time"/>
         <result column="pic" jdbcType="VARCHAR" property="pic"/>
-        <result column="singer_id" jdbcType="INTEGER" property="singer_id"/>
         <result column="introduction" jdbcType="LONGVARCHAR" property="introduction"/>
         <result column="lyric" jdbcType="LONGVARCHAR" property="lyric"/>
-        <result column="types" jdbcType="VARCHAR" property="type"/>
+        <result column="types" jdbcType="VARCHAR" property="types"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,create_time,upDate_time,pic,singer_id,introduction,lyric,types
+        id,name,create_time,update_time,pic,singer_id,introduction,lyric,types,url
     </sql>
 
-    <insert id="insertMusic" parameterType="com.music.musicwebsitebackend.entity.Music">
-        insert into music
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="id != null">
-                id,
-            </if>
-            <if test="name != null">
-                name,
-            </if>
-            <if test="create_time != null">
-                create_time,
-            </if>
-            <if test="upDate_time != null">
-                upDate_time,
-            </if>
-            <if test="pic != null">
-                pic,
-            </if>
-            <if test="introduction != null">
-                introduction,
-            </if>
-            <if test="lyric != null">
-                lyric,
-            </if>
-            <if test="types != null">
-                types,
-            </if>
-            <if test="singer_id != null">
-                singer_id,
-            </if>
-
-        </trim>
-
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="singer_id != null" >
-                #{singer_id,jdbcType=INTEGER},
-            </if>
-            <if test="name != null" >
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="create_time != null" >
-                #{create_time,jdbcType=TIMESTAMP},
-            </if>
-            <if test="upDate_time != null" >
-                #{upDate_time,jdbcType=TIMESTAMP},
-            </if>
-            <if test="pic != null" >
-                #{pic,jdbcType=VARCHAR},
-            </if>
-            <if test="lyric != null" >
-                #{lyric,jdbcType=LONGVARCHAR},
-            </if>
-            <if test="types != null" >
-                #{types,jdbcType=VARCHAR},
-            </if>
-            <if test="introduction != null" >
-                #{introduction,jdbcType=LONGVARCHAR},
-            </if>
-        </trim>
+    <insert id="insertMusic">
+        insert into music (id,name,create_time,update_time,pic,singer_id
+                        ,introduction,lyric,types,url
+        )
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+                    #{create_time,jdbcType=TIMESTAMP},
+                    #{update_time,jdbcType=TIMESTAMP}, #{pic,jdbcType=VARCHAR},
+                    #{singer_id,jdbcType=INTEGER},#{introduction,jdbcType=VARCHAR},#{lyric,jdbcType=VARCHAR},
+                    #{types,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR}
+               )
     </insert>
+
+
+
+
+
+
+<!--    <insert id="insertMusic" parameterType="com.music.musicwebsitebackend.entity.Music">-->
+<!--        insert into music-->
+<!--        <trim prefix="(" suffix=")" suffixOverrides="," >-->
+<!--            <if test="id != null">-->
+<!--                id,-->
+<!--            </if>-->
+<!--            <if test="name != null">-->
+<!--                name,-->
+<!--            </if>-->
+<!--            <if test="create_time != null">-->
+<!--                create_time,-->
+<!--            </if>-->
+<!--            <if test="update_time != null">-->
+<!--                update_time,-->
+<!--            </if>-->
+<!--            <if test="pic != null">-->
+<!--                pic,-->
+<!--            </if>-->
+<!--            <if test="introduction != null">-->
+<!--                introduction,-->
+<!--            </if>-->
+<!--            <if test="lyric != null">-->
+<!--                lyric,-->
+<!--            </if>-->
+<!--            <if test="types != null">-->
+<!--                types,-->
+<!--            </if>-->
+<!--            <if test="singer_id != null">-->
+<!--                singer_id,-->
+<!--            </if>-->
+
+<!--        </trim>-->
+
+<!--        <trim prefix="values (" suffix=")" suffixOverrides="," >-->
+<!--            <if test="id != null" >-->
+<!--                #{id,jdbcType=INTEGER},-->
+<!--            </if>-->
+<!--            <if test="singer_id != null" >-->
+<!--                #{singer_id,jdbcType=INTEGER},-->
+<!--            </if>-->
+<!--            <if test="name != null" >-->
+<!--                #{name,jdbcType=VARCHAR},-->
+<!--            </if>-->
+<!--            <if test="create_time != null" >-->
+<!--                #{create_time,jdbcType=TIMESTAMP},-->
+<!--            </if>-->
+<!--            <if test="update_time != null" >-->
+<!--                #{update_time,jdbcType=TIMESTAMP},-->
+<!--            </if>-->
+<!--            <if test="pic != null" >-->
+<!--                #{pic,jdbcType=VARCHAR},-->
+<!--            </if>-->
+<!--            <if test="lyric != null" >-->
+<!--                #{lyric,jdbcType=LONGVARCHAR},-->
+<!--            </if>-->
+<!--            <if test="types != null" >-->
+<!--                #{types,jdbcType=VARCHAR},-->
+<!--            </if>-->
+<!--            <if test="introduction != null" >-->
+<!--                #{introduction,jdbcType=LONGVARCHAR},-->
+<!--            </if>-->
+<!--        </trim>-->
+<!--    </insert>-->
 
     <update id="updateMusic" parameterType="com.music.musicwebsitebackend.entity.Music" >
         update music
@@ -89,10 +107,11 @@
             singer_id = #{singer_id,jdbcType=INTEGER},
             pic = #{pic,jdbcType=VARCHAR},
             create_time = #{create_time,jdbcType=TIMESTAMP},
-            upDate_time = #{upDate_time,jdbcType=TIMESTAMP},
+            update_time = #{update_time,jdbcType=TIMESTAMP},
             types = #{types,jdbcType=VARCHAR},
             lyric = #{lyric,jdbcType=LONGVARCHAR},
             introduction = #{introduction,jdbcType=VARCHAR}
+            url = #{url,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
 

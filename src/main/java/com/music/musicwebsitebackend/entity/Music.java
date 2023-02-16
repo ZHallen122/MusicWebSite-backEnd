@@ -25,7 +25,7 @@ public class Music implements Serializable {
 
     private String url;
 
-    private String type;
+    private String types;
 
     public int getId() {
         return id;
@@ -99,11 +99,11 @@ public class Music implements Serializable {
         this.url = url;
     }
 
-    public String getType() {
-        return type;
+    public String getTypes() {
+        return types;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypes(String types) {
+        this.types = types;
     }
 }
