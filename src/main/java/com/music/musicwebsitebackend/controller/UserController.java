@@ -1,6 +1,8 @@
 package com.music.musicwebsitebackend.controller;
 
 import com.music.musicwebsitebackend.Security.JwtTokenUtil;
+import com.music.musicwebsitebackend.entity.Music;
+import com.music.musicwebsitebackend.entity.Music_List;
 import com.music.musicwebsitebackend.entity.User;
 import com.music.musicwebsitebackend.service.UserService;
 import com.music.musicwebsitebackend.utils.Result;
@@ -12,10 +14,11 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
-//@RequestMapping("/user")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -45,6 +48,16 @@ public class UserController {
             return Result.success("sign up success");
         }else {
             return Result.error("sign up fail");
+        }
+    }
+
+    @GetMapping("/findAllUser")
+    public Result findAllUser(){
+        List<User> user = userService.findAllUser();
+        if(user!=null){
+            return Result.success(user);
+        }else{
+            return Result.error("error user finding");
         }
     }
 

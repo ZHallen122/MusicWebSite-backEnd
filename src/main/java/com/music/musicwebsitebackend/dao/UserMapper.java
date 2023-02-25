@@ -17,7 +17,7 @@ public interface UserMapper {
 
     public User findUser(String email);
 
-    public List<User> findAllUser();
+    public  List<User> findAllUser();
 
     public User findUserByName(String username);
 }

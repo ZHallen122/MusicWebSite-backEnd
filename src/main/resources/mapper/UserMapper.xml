@@ -60,7 +60,7 @@
         where email = #{email,jdbcType=VARCHAR}
     </select>
     <select id="findAllUser" resultType="com.music.musicwebsitebackend.entity.User">
-        select *
+        select username, sex, phone_number, email, birth, location, avator, create_time, update_time, role
         from user
     </select>
     <select id="findUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
