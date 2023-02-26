@@ -1,10 +1,13 @@
 package com.music.musicwebsitebackend.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
     // ID
+
+    private int user_id;
     private String email;
 
     private String userName;
@@ -26,6 +29,14 @@ public class User {
     private Date update_time;
 
     private String role;
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
     public String getEmail() {
         return email;

@@ -16,22 +16,23 @@
             <result property="create_time" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="role" column="role" jdbcType="VARCHAR"/>
+            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        email,userName,password,
+        user_id,email,userName,password,
         sex,phone_number,birth,
         location,avator,create_time,
         update_time,role
     </sql>
 
     <insert id="insertUser">
-        insert into user (email,userName,password,
+        insert into user (user_id, email,userName,password,
                           sex,phone_number,birth,
                           location,avator,create_time,
                           update_time,role
         )
-        values (#{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        values (#{user_id,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
                 #{sex,jdbcType=TINYINT}, #{phone_number,jdbcType=INTEGER},
                 #{birth,jdbcType=TIMESTAMP},#{location,jdbcType=VARCHAR}
                 ,#{avator,jdbcType=VARCHAR},#{create_time,jdbcType=TIMESTAMP}
@@ -42,30 +43,31 @@
     <update id="updateUser">
         update user
         set #{userName,jdbcType=VARCHAR},
+            #{email,jdbcType=VARCHAR},
             #{password,jdbcType=VARCHAR},
             #{sex,jdbcType=TINYINT}, #{phone_number,jdbcType=INTEGER},
             #{birth,jdbcType=TIMESTAMP},#{location,jdbcType=VARCHAR}
             ,#{avator,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP}
             ,#{update_time,jdbcType=TIMESTAMP}, #{role,jdbcType=VARCHAR}
-        where email = #{email,jdbcType=VARCHAR}
+        where user_id = #{user_id,jdbcType=INTEGER}
     </update>
     <delete id="deleteUser">
         delete from user
-        where email = #{email,jdbcType=VARCHAR}
+        where user_id = #{user_id,jdbcType=INTEGER}
     </delete>
     <select id="findUser" resultType="com.music.musicwebsitebackend.entity.User">
         select
         <include refid="Base_Column_List" />
         from user
-        where email = #{email,jdbcType=VARCHAR}
+        where user_id = #{user_id,jdbcType=INTEGER}
     </select>
     <select id="findAllUser" resultType="com.music.musicwebsitebackend.entity.User">
-        select username, sex, phone_number, email, birth, location, avator, create_time, update_time, role
+        select username, sex, phone_number, email, birth, location, avator, create_time, update_time, role, user_id
         from user
     </select>
     <select id="findUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select *
         from user
-        where email like #{email, jdbcType=VARCHAR}
+        where user_id = #{user_id,jdbcType=INTEGER}
     </select>
 </mapper>
