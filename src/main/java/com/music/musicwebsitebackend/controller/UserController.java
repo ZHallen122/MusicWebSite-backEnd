@@ -35,14 +35,15 @@ public class UserController {
         }else{
             Map<String, Object> map = new HashMap<>();
             map.put("role",user.getRole());
-            String token = jwtTokenUtil.generateToken(user.getEmail(),user.getUserName(),map);
+            String id = " "+user.getUser_id();
+            String token = jwtTokenUtil.generateToken(id,user.getUserName(),map);
             return Result.success(token,"success");
         }
     }
 
     @PostMapping("/signup")
     public Result signUp(@RequestBody User user){
-
+        user.setRole("user");
         Boolean check = userService.signUp(user);
         if(check){
             return Result.success("sign up success");
@@ -51,7 +52,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/findAllUser")
+    @GetMapping("/search/all")
     public Result findAllUser(){
         List<User> user = userService.findAllUser();
         if(user!=null){

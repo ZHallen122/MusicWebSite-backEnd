@@ -1,9 +1,7 @@
 package com.music.musicwebsitebackend.controller;
 
 import com.music.musicwebsitebackend.entity.List_Music;
-import com.music.musicwebsitebackend.entity.Singer;
 import com.music.musicwebsitebackend.service.ListMusicService;
-import com.music.musicwebsitebackend.service.SingerService;
 import com.music.musicwebsitebackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/List_Music")
+@RequestMapping("/list_Music")
 public class List_MusicController {
     @Autowired
     private ListMusicService listMusicService;
@@ -26,9 +24,9 @@ public class List_MusicController {
         }
     }
 
-    @GetMapping("/delete/{ListMusicId}")
-    public Result deletList_Music(@PathVariable("ListMusicId") int id){
-        Boolean checker = listMusicService.deleteListMusic(id);
+    @GetMapping("/delete")
+    public Result deleteList_Music(@RequestParam("list_music_id") int list_music_id){
+        Boolean checker = listMusicService.deleteListMusic(list_music_id);
         if(checker){
             return Result.success("delete success");
         }else{
@@ -46,7 +44,7 @@ public class List_MusicController {
         }
     }
 
-    @PostMapping("/searchList_Music/{ListMusicId}")
+    @GetMapping ("/searchList_Music/{ListMusicId}")
     public Result searchList_Music(@PathVariable("ListMusicId")int id){
         List_Music list_music = listMusicService.findListMusic(id);
         if(list_music!=null){

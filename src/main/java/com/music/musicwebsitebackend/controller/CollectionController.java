@@ -5,15 +5,17 @@ import com.music.musicwebsitebackend.entity.Music;
 import com.music.musicwebsitebackend.service.CollectionService;
 import com.music.musicwebsitebackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/Collection")
+@RequestMapping("/collection")
 public class CollectionController {
     @Autowired
     private CollectionService collectionService;
 
-    @PostMapping("/addCollection")
+    @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('admin', 'user')")
     public Result addCollection(@RequestBody Collect collect){
         Boolean checker = collectionService.insertCollection(collect);
         if(checker){
@@ -23,9 +25,10 @@ public class CollectionController {
         }
     }
 
-    @GetMapping("/deleteCollection/{userId}/{musicId}")
-    public Result deleteCollection(@PathVariable("userId") int userId,@PathVariable("musicId") int musicId){
-        Boolean checker = collectionService.deleteCollection(userId,musicId);
+    @GetMapping("/delete")
+    @PreAuthorize("hasAnyAuthority('admin', 'user')")
+    public Result deleteCollection(@RequestParam("user_id") int user_id,@RequestParam("music_id") int music_id){
+        Boolean checker = collectionService.deleteCollection(user_id,music_id);
         if(checker){
             return Result.success("delete success");
         }else{
@@ -33,23 +36,26 @@ public class CollectionController {
         }
     }
 
-    @PostMapping("/updateCollection")
+    @PostMapping("/update")
+    @PreAuthorize("hasAnyAuthority('admin', 'user')")
     public Result updateCollection(@RequestBody Collect collect){
         Boolean checker = collectionService.updateCollection(collect);
         if(checker){
-            return Result.success("delete success");
+            return Result.success("update success");
         }else{
-            return Result.error("delete fail");
+            return Result.error("update fail");
         }
     }
 
-    @GetMapping("/findCollection/{findId}")
-    public Result findCollection(@PathVariable("findId") int id){
-        Collect collect = collectionService.findCollection(id);
+    @GetMapping("/search")
+    @PreAuthorize("hasAnyAuthority('admin', 'user')")
+    public Result findCollection(@RequestParam("user_id") int user_id,
+                                 @RequestParam("collect_id") int collect_id){
+        Collect collect = collectionService.findCollection(user_id,collect_id);
         if(collect!=null){
-            return Result.success("success");
+            return Result.success(collect,"find music success");
         }else{
-            return Result.error("error music insert");
+            return Result.error("error find music");
         }
     }
 }

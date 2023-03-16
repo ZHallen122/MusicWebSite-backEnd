@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/Comment")
+@RequestMapping("/comment")
 public class CommentController {
     @Autowired
     private CommenteService commenteService;
 
-    @PostMapping("/addComment")
+    @PostMapping("/add")
     public Result addComment(@RequestBody Comment comment){
         Boolean checker = commenteService.insertComment(comment);
         if(checker){
@@ -23,9 +23,9 @@ public class CommentController {
         }
     }
 
-    @GetMapping("/deleteComment/{CommentId}")
-    public Result deleteComment(@PathVariable("CommentId") int id){
-        Boolean checker = commenteService.deleteComment(id);
+    @GetMapping("/delete")
+    public Result deleteComment(@RequestParam("comment_id") int comment_id){
+        Boolean checker = commenteService.deleteComment(comment_id);
         if(checker){
             return Result.success("delete success");
         }else{
