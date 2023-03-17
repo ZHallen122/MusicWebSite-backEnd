@@ -2,33 +2,33 @@ package com.music.musicwebsitebackend.entity;
 
 public class List_Music {
 
-    private int id;
+    private int list_Music_id;
 
-    private int song_id;
+    private int music_id;
 
-    private int song_List_id;
+    private int music_List_id;
 
-    public int getId() {
-        return id;
+    public int getList_Music_id() {
+        return list_Music_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setList_Music_id(int list_Music_id) {
+        this.list_Music_id = list_Music_id;
     }
 
-    public int getSong_id() {
-        return song_id;
+    public int getMusic_id() {
+        return music_id;
     }
 
-    public void setSong_id(int song_id) {
-        this.song_id = song_id;
+    public void setMusic_id(int music_id) {
+        this.music_id = music_id;
     }
 
-    public int getSong_List_id() {
-        return song_List_id;
+    public int getMusic_List_id() {
+        return music_List_id;
     }
 
-    public void setSong_List_id(int song_List_id) {
-        this.song_List_id = song_List_id;
+    public void setMusic_List_id(int music_List_id) {
+        this.music_List_id = music_List_id;
     }
 }
