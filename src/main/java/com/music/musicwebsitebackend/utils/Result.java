@@ -43,6 +43,7 @@ public class Result<T> implements Serializable {
         Result r = new Result();
         r.data=data;
         r.code=1;
+        r.success=true;
         return r;
     }
 
