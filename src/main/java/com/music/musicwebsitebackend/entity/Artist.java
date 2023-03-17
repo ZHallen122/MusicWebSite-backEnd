@@ -3,9 +3,9 @@ package com.music.musicwebsitebackend.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Singer implements Serializable {
+public class Artist implements Serializable {
 
-    private int id;
+    private int artist_id;
 
     private String name;
 
@@ -13,14 +13,14 @@ public class Singer implements Serializable {
 
     private String pic;
 
-    private Date birthday;
+    private Date birth;
 
-    public Date getBirthday() {
-        return birthday;
+    public Date getBirth() {
+        return birth;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setBirth(Date birth) {
+        this.birth = birth;
     }
 
     public String getLocation() {
@@ -35,12 +35,12 @@ public class Singer implements Serializable {
 
     private String introduction;
 
-    public int getId() {
-        return id;
+    public int getArtist_id() {
+        return artist_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setArtist_id(int artist_id) {
+        this.artist_id = artist_id;
     }
 
     public String getName() {
@@ -65,14 +65,6 @@ public class Singer implements Serializable {
 
     public void setPic(String pic) {
         this.pic = pic;
-    }
-
-    public Date getBirthDay() {
-        return birthday;
-    }
-
-    public void setBirthDay(Date birthDay) {
-        this.birthday = birthDay;
     }
 
     public String getLocatioin() {

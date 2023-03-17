@@ -1,26 +1,25 @@
 package com.music.musicwebsitebackend.controller;
 
-import com.music.musicwebsitebackend.entity.Singer;
-import com.music.musicwebsitebackend.service.SingerService;
+import com.music.musicwebsitebackend.entity.Artist;
+import com.music.musicwebsitebackend.service.ArtistService;
 import com.music.musicwebsitebackend.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("/singer")
-public class SingerController {
+@RequestMapping("/artist")
+public class ArtistController {
 
     @Autowired
-    private SingerService singerService;
+    private ArtistService artistService;
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('admin')")
-    public Result addSinger(@RequestBody Singer singer){
-        Boolean checker = singerService.insertSinger(singer);
+    public Result addSinger(@RequestBody Artist artist){
+        Boolean checker = artistService.insertArtist(artist);
         if(checker){
             return Result.success("adding success");
         }else{
@@ -28,10 +27,10 @@ public class SingerController {
         }
     }
 
-    @GetMapping("/delete/{SingerId}")
+    @GetMapping("/delete")
     @PreAuthorize("hasAuthority('admin')")
-    public Result deletSinger(@PathVariable("SingerId") int id){
-        Boolean checker = singerService.deleteSinger(id);
+    public Result deleteSinger(@RequestParam("artist_id") int artist_id){
+        Boolean checker = artistService.deleteArtist(artist_id);
         if(checker){
             return Result.success("delete success");
         }else{
@@ -41,8 +40,8 @@ public class SingerController {
 
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('admin')")
-    public Result updateSinger(@RequestBody Singer singer){
-        Boolean checker = singerService.updateSinger(singer);
+    public Result updateSinger(@RequestBody Artist artist){
+        Boolean checker = artistService.updateArtist(artist);
         if(checker){
             return Result.success("update success");
         }else{
@@ -50,33 +49,35 @@ public class SingerController {
         }
     }
 
-    @GetMapping("/search/{Singerid}")
-    public Result searchSinger(@PathVariable("Singerid")int id){
-        Singer singer = singerService.findSinger(id);
+    @GetMapping("/search")
+    public Result searchSinger(@RequestParam("artist_id")int artist_id){
+        Artist singer = artistService.findArtist(artist_id);
         if(singer!=null){
             return Result.success(singer);
         }else{
-            return Result.error("update fail");
+            return Result.error("search fail");
         }
     }
 
-    @GetMapping("/searchAll")
+    @GetMapping("/search/all")
+    @PreAuthorize("hasAuthority('admin')")
     public Result searchAllSinger(){
-        List<Singer> singer = singerService.findAllSinger();
+        List<Artist> singer = artistService.findAllArtist();
         if(singer!=null){
             return Result.success(singer);
         }else{
-            return Result.error("update fail");
+            return Result.error("search fail");
         }
     }
 
-    @GetMapping("/searchSingerByName/{SingerName}")
-    public Result searchSingerByName(@PathVariable("SingerName")String name){
-        Singer singer = singerService.findSingerByName(name);
+    @GetMapping("/search/name")
+    @PreAuthorize("hasAuthority('admin')")
+    public Result searchSingerByName(@RequestParam("artist_name")String artist_name){
+        Artist singer = artistService.findArtistByName(artist_name);
         if(singer!=null){
             return Result.success(singer);
         }else{
-            return Result.error("update fail");
+            return Result.error("search fail");
         }
     }
 
