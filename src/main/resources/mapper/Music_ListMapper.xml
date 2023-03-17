@@ -27,6 +27,14 @@
         from music_List;
     </select>
 
+    <select id="topFiftyMusicList" resultType="com.music.musicwebsitebackend.entity.Music_List">
+        SELECT m.*, f.favorites_numbers
+        FROM music_List m
+                 INNER JOIN favorites f ON m.id = f.musicList_id
+        ORDER BY f.favorites_numbers DESC
+            LIMIT 50;
+    </select>
+
     <insert id="insertMusic_List" parameterType="com.music.musicwebsitebackend.entity.Music_List">
         insert into music_List (id,title,pic,introduction,style,type)
         values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR},

@@ -16,5 +16,7 @@ public interface MusicListService {
 
     public List<Music_List> findAllMusic_List();
 
+    public List<Music_List> topFiftyMusicList();
+
     public Music_List findByNameMusic_List(String name);
 }

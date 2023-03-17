@@ -13,84 +13,73 @@ import java.util.Date;
 */
 public class Comment implements Serializable {
 
-    private Integer id;
+    private Integer comment_id;
 
-    private String userId;
+    private String user_id;
 
-    private Integer musicId;
+    private Integer music_id;
 
-    private Integer musicListId;
+    private Integer music_list_id;
 
     private Integer type;
 
-    private Date creattime;
+    private Date creatTime;
 
     private String context;
 
-    private Integer up;
-
-    private void setId(Integer id){
-    this.id = id;
+    private void setComment_id(Integer comment_id){
+    this.comment_id = comment_id;
     }
 
-    private void setUserId(String userId){
-    this.userId = userId;
+    private void setUser_id(String user_id){
+    this.user_id = user_id;
     }
 
-    private void setMusicId(Integer musicId){
-    this.musicId = musicId;
+    private void setMusic_id(Integer music_id){
+    this.music_id = music_id;
     }
 
-    private void setMusicListId(Integer musicListId){
-    this.musicListId = musicListId;
+    private void setMusic_list_id(Integer music_list_id){
+    this.music_list_id = music_list_id;
     }
 
     private void setType(Integer type){
     this.type = type;
     }
 
-    private void setCreattime(Date creattime){
-    this.creattime = creattime;
+    private void setCreatTime(Date creatTime){
+    this.creatTime = creatTime;
     }
 
     private void setContext(String context){
     this.context = context;
     }
 
-    private void setUp(Integer up){
-    this.up = up;
+    private Integer getComment_id(){
+    return this.comment_id;
     }
 
-    private Integer getId(){
-    return this.id;
+    private String getUser_id(){
+    return this.user_id;
     }
 
-    private String getUserId(){
-    return this.userId;
+    private Integer getMusic_id(){
+    return this.music_id;
     }
 
-    private Integer getMusicId(){
-    return this.musicId;
-    }
-
-    private Integer getMusicListId(){
-    return this.musicListId;
+    private Integer getMusic_list_id(){
+    return this.music_list_id;
     }
 
     private Integer getType(){
     return this.type;
     }
 
-    private Date getCreattime(){
-    return this.creattime;
+    private Date getCreatTime(){
+    return this.creatTime;
     }
 
     private String getContext(){
     return this.context;
     }
-
-    private Integer getUp(){
-    return this.up;
-    }
-
 }

@@ -32,88 +32,28 @@
                )
     </insert>
 
+    <delete id="deleteMusicByArtistId" parameterType="java.lang.Integer">
+        delete
+        from music where singer_id = #{singer_id,jdbcType=INTEGER}
+    </delete>
 
-
-
-
-
-<!--    <insert id="insertMusic" parameterType="com.music.musicwebsitebackend.entity.Music">-->
-<!--        insert into music-->
-<!--        <trim prefix="(" suffix=")" suffixOverrides="," >-->
-<!--            <if test="id != null">-->
-<!--                id,-->
-<!--            </if>-->
-<!--            <if test="name != null">-->
-<!--                name,-->
-<!--            </if>-->
-<!--            <if test="create_time != null">-->
-<!--                create_time,-->
-<!--            </if>-->
-<!--            <if test="update_time != null">-->
-<!--                update_time,-->
-<!--            </if>-->
-<!--            <if test="pic != null">-->
-<!--                pic,-->
-<!--            </if>-->
-<!--            <if test="introduction != null">-->
-<!--                introduction,-->
-<!--            </if>-->
-<!--            <if test="lyric != null">-->
-<!--                lyric,-->
-<!--            </if>-->
-<!--            <if test="types != null">-->
-<!--                types,-->
-<!--            </if>-->
-<!--            <if test="singer_id != null">-->
-<!--                singer_id,-->
-<!--            </if>-->
-
-<!--        </trim>-->
-
-<!--        <trim prefix="values (" suffix=")" suffixOverrides="," >-->
-<!--            <if test="id != null" >-->
-<!--                #{id,jdbcType=INTEGER},-->
-<!--            </if>-->
-<!--            <if test="singer_id != null" >-->
-<!--                #{singer_id,jdbcType=INTEGER},-->
-<!--            </if>-->
-<!--            <if test="name != null" >-->
-<!--                #{name,jdbcType=VARCHAR},-->
-<!--            </if>-->
-<!--            <if test="create_time != null" >-->
-<!--                #{create_time,jdbcType=TIMESTAMP},-->
-<!--            </if>-->
-<!--            <if test="update_time != null" >-->
-<!--                #{update_time,jdbcType=TIMESTAMP},-->
-<!--            </if>-->
-<!--            <if test="pic != null" >-->
-<!--                #{pic,jdbcType=VARCHAR},-->
-<!--            </if>-->
-<!--            <if test="lyric != null" >-->
-<!--                #{lyric,jdbcType=LONGVARCHAR},-->
-<!--            </if>-->
-<!--            <if test="types != null" >-->
-<!--                #{types,jdbcType=VARCHAR},-->
-<!--            </if>-->
-<!--            <if test="introduction != null" >-->
-<!--                #{introduction,jdbcType=LONGVARCHAR},-->
-<!--            </if>-->
-<!--        </trim>-->
-<!--    </insert>-->
-
-    <update id="updateMusic" parameterType="com.music.musicwebsitebackend.entity.Music" >
+    <update id="updateMusic" parameterType="com.music.musicwebsitebackend.entity.Music">
         update music
         set name = #{name,jdbcType=VARCHAR},
-            singer_id = #{singer_id,jdbcType=INTEGER},
+            singer_id = (
+                select artist_id from Artist where artist_id = #{singer_id,jdbcType=INTEGER}
+            ),
             pic = #{pic,jdbcType=VARCHAR},
             create_time = #{create_time,jdbcType=TIMESTAMP},
             update_time = #{update_time,jdbcType=TIMESTAMP},
             types = #{types,jdbcType=VARCHAR},
             lyric = #{lyric,jdbcType=LONGVARCHAR},
-            introduction = #{introduction,jdbcType=VARCHAR}
+            introduction = #{introduction,jdbcType=VARCHAR},
             url = #{url,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+
 
     <delete id="deleteMusic" parameterType="java.lang.Integer" >
         delete from music
@@ -122,13 +62,22 @@
 
     <select id="findMusic" resultType="com.music.musicwebsitebackend.entity.Music" parameterType="java.lang.Integer" >
         select
+        <include refid="Base_Column_List" />
         from music
         where id = #{id,jdbcType=INTEGER}
     </select>
+
     <select id="findAllMusic" resultType="com.music.musicwebsitebackend.entity.Music">
         select *
         from music
     </select>
 
+    <select id="topFiftyMusic" resultType="com.music.musicwebsitebackend.entity.Music">
+        SELECT m.*, f.favorites_numbers
+        FROM music m
+        INNER JOIN favorites f ON m.id = f.music_Id
+        ORDER BY f.favorites_numbers DESC
+        LIMIT 50;
+    </select>
 
 </mapper>

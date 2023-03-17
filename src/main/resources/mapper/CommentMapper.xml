@@ -5,50 +5,48 @@
 <mapper namespace="com.music.musicwebsitebackend.dao.CommentMapper">
 
     <resultMap id="BaseResultMap" type="com.music.musicwebsitebackend.entity.Comment">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="userId" column="user_id" jdbcType="VARCHAR"/>
-            <result property="musicId" column="music_id" jdbcType="INTEGER"/>
-            <result property="musicListId" column="music_list_id" jdbcType="INTEGER"/>
+            <id property="comment_id" column="comment_id" jdbcType="INTEGER"/>
+            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
+            <result property="music_id" column="music_id" jdbcType="INTEGER"/>
+            <result property="music_list_id" column="music_list_id" jdbcType="INTEGER"/>
             <result property="type" column="type" jdbcType="TINYINT"/>
-            <result property="creattime" column="creatTime" jdbcType="TIMESTAMP"/>
-            <result property="context" column="context" jdbcType="VARCHAR"/>
-            <result property="up" column="up" jdbcType="INTEGER"/>
+            <result property="creatTime" column="creatTime" jdbcType="TIMESTAMP"/>
+            <result property="context" column="context" jdbcType="LONGVARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,userId,musicId,
-        musicListId,type,creattime,
-        context,up
+        comment_id,user_id,music_id,
+        music_list_id,type,creatTime,
+        context
     </sql>
     <insert id="insertComment" parameterType="com.music.musicwebsitebackend.entity.Comment">
-        insert into Comment (id, userId, type,
-                             musicId, musicListId, create_time,context,up
+        insert into comment (comment_id, user_id, type,
+                             music_id, music_list_id, creatTime,context
         )
-        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
-                #{musicId,jdbcType=INTEGER}, #{musicListId,jdbcType=INTEGER},
-                #{createTime,jdbcType=TIMESTAMP}, #{context,jdbcType=VARCHAR},#{up,jdbcType=INTEGER}
+        values (#{comment_id,jdbcType=INTEGER}, #{user_id,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+                #{music_id,jdbcType=INTEGER}, #{music_list_id,jdbcType=INTEGER},
+                #{creatTime,jdbcType=TIMESTAMP}, #{context,jdbcType=VARCHAR}
                )
     </insert>
     <update id="updateComment" parameterType="com.music.musicwebsitebackend.entity.Comment">
-        update Comment
-        set user_id = #{userId,jdbcType=VARCHAR},
+        update comment
+        set user_id = #{user_id,jdbcType=VARCHAR},
             type = #{type,jdbcType=TINYINT},
-            musicId = #{musicId,jdbcType=INTEGER},
-            musicListId = #{musicListId,jdbcType=INTEGER},
-            create_time = #{createTime,jdbcType=TIMESTAMP},
+            music_id = #{music_id,jdbcType=INTEGER},
+            music_list_id = #{music_list_id,jdbcType=INTEGER},
+            creatTime = #{creatTime,jdbcType=TIMESTAMP},
             context = #{context,jdbcType=VARCHAR},
-            up = #{up,jdbcType=INTEGER}
-        where id = #{id,jdbcType=INTEGER}
+        where comment_id = #{comment_id,jdbcType=INTEGER}
     </update>
     <delete id="deleteComment" parameterType="java.lang.Integer">
         delete from comment
-        where id = #{id,jdbcType=INTEGER}
+        where comment_id = #{comment_id,jdbcType=INTEGER}
     </delete>
     <select id="findComment" resultType="com.music.musicwebsitebackend.entity.Comment">
         select
         <include refid="Base_Column_List" />
         from comment
-        where id = #{id,jdbcType=INTEGER}
+        where comment_id = #{comment_id,jdbcType=INTEGER}
     </select>
     <select id="findAllComment" resultType="com.music.musicwebsitebackend.entity.Comment">
         select *

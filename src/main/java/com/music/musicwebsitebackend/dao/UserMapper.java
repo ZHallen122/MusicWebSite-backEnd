@@ -1,6 +1,5 @@
 package com.music.musicwebsitebackend.dao;
 
-import com.music.musicwebsitebackend.entity.Rank;
 import com.music.musicwebsitebackend.entity.User;
 import org.springframework.stereotype.Repository;
 

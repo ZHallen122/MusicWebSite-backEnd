@@ -1,7 +1,6 @@
 package com.music.musicwebsitebackend.dao;
 
 import com.music.musicwebsitebackend.entity.Music_List;
-import com.music.musicwebsitebackend.entity.Singer;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,6 +17,8 @@ public interface Music_ListMapper {
     public Music_List findMusic_List(Integer id);
 
     public List<Music_List> findAllMusic_List();
+
+    public List<Music_List> topFiftyMusicList();
 
     public Music_List findByNameMusic_List(String name);
 }

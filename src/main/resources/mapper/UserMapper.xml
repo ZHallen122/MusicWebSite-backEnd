@@ -68,6 +68,6 @@
     <select id="findUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select *
         from user
-        where user_id = #{user_id,jdbcType=INTEGER}
+        where email = #{email,jdbcType=VARCHAR}
     </select>
 </mapper>

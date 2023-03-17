@@ -1,7 +1,6 @@
 package com.music.musicwebsitebackend.service;
 
 import com.music.musicwebsitebackend.entity.Comment;
-import com.music.musicwebsitebackend.entity.Rank;
 
 import java.util.List;
 

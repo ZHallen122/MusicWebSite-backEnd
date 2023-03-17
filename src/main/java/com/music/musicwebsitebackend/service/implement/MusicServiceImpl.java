@@ -7,7 +7,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.music.musicwebsitebackend.dao.MusicMapper;
 import com.music.musicwebsitebackend.entity.Music;
-import com.music.musicwebsitebackend.entity.Singer;
+import com.music.musicwebsitebackend.entity.Music_List;
 import com.music.musicwebsitebackend.exception.inserS3Exception;
 import com.music.musicwebsitebackend.service.MusicService;
 import com.music.musicwebsitebackend.utils.Result;
@@ -18,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class MusicServiceImpl implements MusicService {
@@ -27,6 +29,12 @@ public class MusicServiceImpl implements MusicService {
 
     @Autowired
     private AmazonS3 amazonS3;
+
+//    private static final List<String> NAMES = Arrays.asList("Name1", "Name2", "Name3", "Name4", "Name5");
+//    private static final List<Integer> ARTISTS = Arrays.asList(1, 2, 3, 4, 5);
+//    private static final List<String> GENRES = Arrays.asList("Rock", "Pop", "Hip-Hop", "Jazz", "Classical");
+
+//    private static final Random RANDOM = new Random();
 
     @Override
     public boolean insertMusic(Music music, MultipartFile musicFile, MultipartFile picFile) throws SdkClientException, AmazonServiceException{
@@ -52,12 +60,25 @@ public class MusicServiceImpl implements MusicService {
 
             } catch (SdkClientException e) {
                 throw new SdkClientException("erro SdkClientException");
-                
+
             } catch (IOException a){
                 throw new inserS3Exception("erro AmazonServiceException");
             }
+            return checkInsert;
 
-        return checkInsert;
+            /** test                        */
+//            for(int i=0; i < 5; i++) {
+//                String name = NAMES.get(RANDOM.nextInt(NAMES.size()));
+//                Integer artist = ARTISTS.get(RANDOM.nextInt(ARTISTS.size()));
+//                String genre = GENRES.get(RANDOM.nextInt(GENRES.size()));
+//
+//                Music testMusic = new Music();
+//                testMusic.setName(name);
+//                testMusic.setSinger_id(artist);
+//                testMusic.setTypes(genre);
+//                musicMapper.insertMusic(testMusic);
+//            }
+//            return true;
     }
 
     @Override
@@ -67,6 +88,10 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public Boolean deleteMusic(int id) {
+        //delete object in bucket
+        Music music = musicMapper.findMusic(id);
+        String musicName = music.getName();
+        String picAddress = music.getPic();
         return musicMapper.deleteMusic(id) > 0 ? true : false;
     }
 
@@ -78,6 +103,11 @@ public class MusicServiceImpl implements MusicService {
     @Override
     public List<Music> findAllMusic() {
         return musicMapper.findAllMusic();
+    }
+
+    @Override
+    public List<Music> topFiftyMusic() {
+        return musicMapper.topFiftyMusic();
     }
 
     @Override

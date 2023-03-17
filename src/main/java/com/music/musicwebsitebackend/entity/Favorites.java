@@ -4,22 +4,22 @@ import java.io.Serializable;
 
 /**
 * 
-* @TableName Rank
+* @TableName Favorites
 */
-public class Rank implements Serializable {
+public class Favorites implements Serializable {
 
 
-    private Integer id;
+    private Integer favorites_id;
 
     private Integer musicList_Id;
 
     private Integer music_Id;
 
-    private Integer score;
+    private Integer favorites_numbers;
 
 
-    private void setId(Integer id){
-    this.id = id;
+    private void setFavorites_id(Integer favorites_id){
+    this.favorites_id = favorites_id;
     }
 
 
@@ -33,13 +33,13 @@ public class Rank implements Serializable {
     }
 
 
-    private void setScore(Integer score){
-    this.score = score;
+    private void setFavorites_numbers(Integer favorites_numbers){
+    this.favorites_numbers = favorites_numbers;
     }
 
 
-    private Integer getId(){
-    return this.id;
+    private Integer getFavorites_id(){
+    return this.favorites_id;
     }
 
 
@@ -53,8 +53,8 @@ public class Rank implements Serializable {
     }
 
 
-    private Integer getScore(){
-    return this.score;
+    private Integer getFavorites_numbers(){
+    return this.favorites_numbers;
     }
 
 }

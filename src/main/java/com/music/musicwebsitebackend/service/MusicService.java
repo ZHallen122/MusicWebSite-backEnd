@@ -1,7 +1,6 @@
 package com.music.musicwebsitebackend.service;
 
 import com.music.musicwebsitebackend.entity.Music;
-import com.music.musicwebsitebackend.entity.Singer;
 import com.music.musicwebsitebackend.utils.Result;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +16,8 @@ public interface MusicService {
     public Music findMusic(Integer id);
 
     public List<Music> findAllMusic();
+
+    public List<Music> topFiftyMusic();
 
     public Music findMusicByName(String name);
 }

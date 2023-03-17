@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.music.musicwebsitebackend.dao.FavoritesMapper">
+
+    <resultMap id="BaseResultMap" type="com.music.musicwebsitebackend.entity.Favorites">
+            <id property="favorites_id" column="favorites_id" jdbcType="INTEGER"/>
+            <result property="musicList_Id" column="musicList_id" jdbcType="INTEGER"/>
+            <result property="music_Id" column="music_Id" jdbcType="INTEGER"/>
+            <result property="favorites_numbers" column="favorites_numbers" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        favorites_id,musicList_Id,music_Id,
+        favorites_numbers
+    </sql>
+    <insert id="insertFavorites" parameterType="com.music.musicwebsitebackend.entity.Favorites">
+        insert into favorites (favorites_id,musicList_Id,music_Id,
+                               favorites_numbers
+        )
+        values (#{favorites_id,jdbcType=INTEGER}, #{musicList_Id,jdbcType=INTEGER}, #{music_Id,jdbcType=TINYINT},
+                #{favorites_numbers,jdbcType=INTEGER}
+               )
+
+    </insert>
+    <update id="updateFavorites">
+        update favorites
+        set musicList_Id = #{musicList_Id,jdbcType=INTEGER},
+            music_Id = #{music_Id,jdbcType=TINYINT},
+            favorites_numbers = #{favorites_numbers,jdbcType=INTEGER}
+        where favorites_id = #{favorites_id,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteFavorites">
+        delete from favorites
+        where favorites_id = #{favorites_id,jdbcType=INTEGER}
+    </delete>
+    <select id="findFavorites" resultType="com.music.musicwebsitebackend.entity.Favorites">
+        select
+        <include refid="Base_Column_List" />
+        from favorites
+        where favorites_id = #{favorites_id,jdbcType=INTEGER}
+    </select>
+    <select id="findAllFavorites" resultType="com.music.musicwebsitebackend.entity.Favorites">
+        select *
+        from favorites
+    </select>
+</mapper>
