@@ -13,7 +13,7 @@ public interface CollectionService {
 
     public Boolean deleteCollection(Integer userId, Integer musicId);
 
-    public Collect findCollection(Integer id);
+    public Collect findCollection(Integer user_id, Integer collect_id);
 
     public List<Collect> findAllCollection();
 }

@@ -16,7 +16,7 @@ public interface CollectionMapper {
 
     public int deleteCollection(@Param("userId") Integer userId, @Param("songId") Integer songId);
 
-    public Collect findCollection(Integer id);
+    public Collect findCollection(Integer user_id, Integer collect_id);
 
     public List<Collect> findAllCollection();
 

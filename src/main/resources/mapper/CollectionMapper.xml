@@ -5,8 +5,8 @@
 <mapper namespace="com.music.musicwebsitebackend.dao.CollectionMapper">
 
     <resultMap id="BaseResultMap" type="com.music.musicwebsitebackend.entity.Collect">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="user_id" column="user_id" jdbcType="VARCHAR"/>
+            <id property="collect_id" column="collect_id" jdbcType="INTEGER"/>
+            <result property="user_id" column="user_id" jdbcType="INTEGER"/>
             <result property="type" column="type" jdbcType="TINYINT"/>
             <result property="music_id" column="music_id" jdbcType="INTEGER"/>
             <result property="music_list_id" column="music_list_id" jdbcType="INTEGER"/>
@@ -14,36 +14,36 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,user_id,type,
+        collect_id,user_id,type,
         music_id,music_list_id,create_time
     </sql>
     <insert id="insertCollection" parameterType="com.music.musicwebsitebackend.entity.Collect">
-        insert into collect (id, user_id, type,
+        insert into collect (collect_id, user_id, type,
                                 music_id, music_list_id, create_time
         )
-        values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
-                #{music_id,jdbcType=INTEGER}, #{music_list_id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+        values (#{collect_id,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER}, #{type,jdbcType=TINYINT},
+                #{music_id,jdbcType=INTEGER}, #{music_list_id,jdbcType=INTEGER}, #{create_time,jdbcType=TIMESTAMP}
                )
     </insert>
     <update id="updateCollection" parameterType="com.music.musicwebsitebackend.entity.Collect">
         update collect
-        set user_id = #{userId,jdbcType=VARCHAR},
+        set user_id = #{user_id,jdbcType=INTEGER},
             type = #{type,jdbcType=TINYINT},
-            song_id = #{songId,jdbcType=INTEGER},
-            song_list_id = #{songListId,jdbcType=INTEGER},
-            create_time = #{createTime,jdbcType=TIMESTAMP}
-        where id = #{id,jdbcType=INTEGER}
+            music_id = #{music_id,jdbcType=INTEGER},
+            music_list_id = #{music_list_id,jdbcType=INTEGER},
+            create_time = #{create_time,jdbcType=TIMESTAMP}
+        where collect_id = #{collect_id,jdbcType=INTEGER}
     </update>
     <delete id="deleteCollection">
         delete from collect
-        where user_id = #{userId, jdbcType=VARCHAR}
-          and song_id = #{songId, jdbcType=INTEGER}
+        where user_id = #{user_id, jdbcType=INTEGER}
+          and music_id = #{music_id, jdbcType=INTEGER}
     </delete>
     <select id="findCollection" resultType="com.music.musicwebsitebackend.entity.Collect" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List" />
         from collect
-        where id = #{id,jdbcType=INTEGER}
+        where user_id = #{user_id, jdbcType=INTEGER} and collect_id = #{collect_id,jdbcType=INTEGER}
     </select>
     <select id="findAllCollection" resultType="com.music.musicwebsitebackend.entity.Collect">
         select *

@@ -13,9 +13,9 @@ import java.util.Date;
 */
 public class Collect implements Serializable {
 
-    private Integer id;
+    private Integer collect_id;
 
-    private String user_id;
+    private Integer user_id;
 
     private Integer type;
 
@@ -26,63 +26,51 @@ public class Collect implements Serializable {
     private Date create_time;
 
 
-    private void setId(Integer id){
-    this.id = id;
+    public Integer getCollect_id() {
+        return collect_id;
     }
 
-
-    private void setUser_id(String user_id){
-    this.user_id = user_id;
+    public void setCollect_id(Integer collect_id) {
+        this.collect_id = collect_id;
     }
 
-
-    private void setType(Integer type){
-    this.type = type;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-
-    private void setMusic_id(Integer music_id){
-    this.music_id = music_id;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
-
-    private void setMusic_list_id(Integer music_list_id){
-    this.music_list_id = music_list_id;
+    public Integer getType() {
+        return type;
     }
 
-
-    private void setCreate_time(Date create_time){
-    this.create_time = create_time;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
-
-    private Integer getId(){
-    return this.id;
+    public Integer getMusic_id() {
+        return music_id;
     }
 
-
-    private String getUser_id(){
-    return this.user_id;
+    public void setMusic_id(Integer music_id) {
+        this.music_id = music_id;
     }
 
-
-    private Integer getType(){
-    return this.type;
+    public Integer getMusic_list_id() {
+        return music_list_id;
     }
 
-
-    private Integer getMusic_id(){
-    return this.music_id;
+    public void setMusic_list_id(Integer music_list_id) {
+        this.music_list_id = music_list_id;
     }
 
-
-    private Integer getMusic_list_id(){
-    return this.music_list_id;
+    public Date getCreate_time() {
+        return create_time;
     }
 
-
-    private Date getCreate_time(){
-    return this.create_time;
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
-
 }
