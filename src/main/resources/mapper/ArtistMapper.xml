@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.music.musicwebsitebackend.dao.SingerMapper">
-    <resultMap id="BaseResultMap" type="com.music.musicwebsitebackend.entity.Singer" >
-        <id column="id"  jdbcType="INTEGER" property="id"/>
+<mapper namespace="com.music.musicwebsitebackend.dao.ArtistMapper">
+    <resultMap id="BaseResultMap" type="com.music.musicwebsitebackend.entity.Artist" >
+        <id column="artist_id"  jdbcType="INTEGER" property="artist_id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="sex" jdbcType="TINYINT" property="sex"/>
         <result column="pic" jdbcType="VARCHAR" property="pic"/>
-        <result column="birth" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="birth" jdbcType="TIMESTAMP" property="birth"/>
         <result column="location" jdbcType="VARCHAR" property="location"/>
         <result column="introduction" jdbcType="LONGVARCHAR" property="introduction"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,sex,pic,birth,location,introduction
+        artist_id,name,sex,pic,birth,location,introduction
     </sql>
 
-    <insert id="insertSinger" parameterType="com.music.musicwebsitebackend.entity.Singer">
-        insert into singer
+    <insert id="insertArtist" parameterType="com.music.musicwebsitebackend.entity.Artist">
+        insert into Artist
         <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="id != null">
-                id,
+            <if test="artist_id != null">
+                artist_id,
             </if>
             <if test="name != null">
                 name,
@@ -66,8 +66,8 @@
         </trim>
     </insert>
 
-    <update id="updateSinger" parameterType="com.music.musicwebsitebackend.entity.Singer" >
-        update singer
+    <update id="updateArtist" parameterType="com.music.musicwebsitebackend.entity.Artist" >
+        update Artist
         <set >
             <if test="name != null" >
                 name = #{name,jdbcType=VARCHAR},
@@ -88,38 +88,38 @@
                 introduction = #{introduction,jdbcType=VARCHAR},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where artist_id = #{artist_id,jdbcType=INTEGER}
     </update>
 
-    <update id="updateByPrimaryKey" parameterType="com.music.musicwebsitebackend.entity.Singer" >
-        update singer
+    <update id="updateByPrimaryKey" parameterType="com.music.musicwebsitebackend.entity.Artist" >
+        update Artist
         set name = #{name,jdbcType=VARCHAR},
         sex = #{sex,jdbcType=TINYINT},
         pic = #{pic,jdbcType=VARCHAR},
         birth = #{birth,jdbcType=TIMESTAMP},
         location = #{location,jdbcType=VARCHAR},
         introduction = #{introduction,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=INTEGER}
+        where artist_id = #{artist_id,jdbcType=INTEGER}
     </update>
 
-    <delete id="deleteSinger" parameterType="java.lang.Integer" >
+    <delete id="deleteArtist" parameterType="java.lang.Integer" >
 
-        delete from singer
-        where id = #{id,jdbcType=INTEGER}
+        delete from Artist
+        where artist_id = #{artist_id,jdbcType=INTEGER}
     </delete>
 
-    <select id="findSinger" resultType="com.music.musicwebsitebackend.entity.Singer" parameterType="java.lang.Integer" >
-        select
-        from singer
-        where id = #{id,jdbcType=INTEGER}
+    <select id="findArtist" resultType="com.music.musicwebsitebackend.entity.Artist" parameterType="java.lang.Integer" >
+        select*
+        from Artist
+        where artist_id = #{artist_id,jdbcType=INTEGER}
     </select>
-    <select id="findAllSinger" resultType="com.music.musicwebsitebackend.entity.Singer">
+    <select id="findAllArtist" resultType="com.music.musicwebsitebackend.entity.Artist">
         select *
-        from singer
+        from Artist
     </select>
-    <select id="findSingerByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="findArtistByName" resultMap="BaseResultMap" parameterType="java.lang.String">
         select *
-        from singer
+        from Artist
         where name like #{name, jdbcType=VARCHAR}
     </select>
 
