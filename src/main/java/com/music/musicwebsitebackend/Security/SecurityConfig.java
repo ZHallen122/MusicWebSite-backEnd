@@ -57,9 +57,11 @@ public class SecurityConfig {
         httpSecurity.csrf().disable();
         return httpSecurity.authorizeHttpRequests(authorize ->
                         authorize
-                                .antMatchers("/admin/**","/signup/**","/login/**").permitAll()
+                                .antMatchers("/admin/**","/user/signup/**","/user/login/**").permitAll()
+                                .antMatchers("/**").hasRole("admin")
                                 .mvcMatchers("/findMusic/**").hasAnyRole("admin")
                                 .mvcMatchers("/music/findAllMusic/**").hasAnyRole("admin")
+                                .mvcMatchers("/music/delete/**").hasAnyRole("admin")
                                 .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
@@ -75,25 +77,6 @@ public class SecurityConfig {
                 // Here we enable that we will accept JWTs
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .build();
-
-
-
-        /*http
-                .csrf()
-                .disable()
-                .authorizeHttpRequests()
-                .requestMatchers()
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();*/
     }
 
 }
