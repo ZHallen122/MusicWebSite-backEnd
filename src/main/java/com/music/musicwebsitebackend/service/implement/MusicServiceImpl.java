@@ -3,6 +3,7 @@ package com.music.musicwebsitebackend.service.implement;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.music.musicwebsitebackend.dao.MusicMapper;
@@ -90,9 +91,18 @@ public class MusicServiceImpl implements MusicService {
     public Boolean deleteMusic(int id) {
         //delete object in bucket
         Music music = musicMapper.findMusic(id);
-        String musicName = music.getName();
-        String picAddress = music.getPic();
-        return musicMapper.deleteMusic(id) > 0 ? true : false;
+        String musicUrl = music.getUrl();
+        String picUrl = music.getPic();
+        String bucketName = "music-web-music";
+        boolean success = true;
+        try {
+            amazonS3.deleteObject(new DeleteObjectRequest(bucketName, musicUrl));
+            amazonS3.deleteObject(new DeleteObjectRequest(bucketName, picUrl));
+        } catch (AmazonServiceException e) {
+            System.out.println("Error deleting object from S3: " + e.getMessage());
+            success = false;
+        }
+        return success && musicMapper.deleteMusic(id) > 0;
     }
 
     @Override
