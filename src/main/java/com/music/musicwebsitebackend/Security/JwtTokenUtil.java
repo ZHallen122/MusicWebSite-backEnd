@@ -71,14 +71,6 @@ public class JwtTokenUtil {
         return expiration.before(new Date());
     }
 
-//    public String getSecretKey() {
-//        return secretKey;
-//    }
-//
-//    public void setSecretKey(String secretKey) {
-//        this.secretKey = secretKey;
-//    }
-
     public Long getExpiration() {
         return expiration;
     }

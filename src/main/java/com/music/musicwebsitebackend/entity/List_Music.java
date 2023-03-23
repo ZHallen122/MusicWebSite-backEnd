@@ -1,5 +1,9 @@
 package com.music.musicwebsitebackend.entity;
 
+/**
+ *
+ * table: list_music
+ */
 public class List_Music {
 
     private int list_Music_id;

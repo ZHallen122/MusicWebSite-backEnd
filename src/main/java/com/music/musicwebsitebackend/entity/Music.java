@@ -3,6 +3,10 @@ package com.music.musicwebsitebackend.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ *
+ * table: music
+ */
 public class Music implements Serializable {
 
     //PK

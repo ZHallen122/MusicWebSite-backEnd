@@ -3,6 +3,10 @@ package com.music.musicwebsitebackend.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ *
+ * table: ListenHistory
+ */
 public class ListenHistory implements Serializable {
 
     private int user_id;

@@ -14,6 +14,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
 
+/**
+ *  Amazon S3 config.
+ * */
 @Configuration
 public class AmazonS3Config {
 

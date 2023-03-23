@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
 * 
-* @TableName comment
+* table: comment
 */
 public class Comment implements Serializable {
 

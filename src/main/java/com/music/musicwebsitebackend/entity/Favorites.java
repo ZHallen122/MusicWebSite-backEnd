@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
 * 
-* @TableName Favorites
+* table: favorites
 */
 public class Favorites implements Serializable {
 

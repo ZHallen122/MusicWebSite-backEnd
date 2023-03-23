@@ -3,6 +3,10 @@ package com.music.musicwebsitebackend.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ *
+ * table: Artist
+ * */
 public class Artist implements Serializable {
 
     private int artist_id;

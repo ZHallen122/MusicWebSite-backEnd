@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
 * 
-* @TableName collection
+* table: collection
 */
 public class Collect implements Serializable {
 

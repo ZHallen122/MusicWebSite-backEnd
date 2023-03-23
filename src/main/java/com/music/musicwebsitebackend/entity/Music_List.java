@@ -2,6 +2,10 @@ package com.music.musicwebsitebackend.entity;
 
 import java.io.Serializable;
 
+/**
+ *
+ * table: music_List
+ */
 public class Music_List implements Serializable {
         private int id;
 

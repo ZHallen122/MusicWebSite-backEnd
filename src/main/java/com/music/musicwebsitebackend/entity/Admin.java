@@ -2,6 +2,10 @@ package com.music.musicwebsitebackend.entity;
 
 import java.io.Serializable;
 
+/**
+ *
+ * table: admin
+ * */
 public class Admin implements Serializable {
         private int id;
 
